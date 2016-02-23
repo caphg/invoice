@@ -20,8 +20,6 @@
     <%= f.text_field :footer, value: @bill.footer %>
   </div>
 
-  <%= content_tag :a, "New service", href: "#modal", class: 'btn btn-primary', data: {toggle: 'modal'} %>
-
   <div class="modal fade" tabindex="-1" role="dialog" id="modal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -61,28 +59,35 @@
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
-  <% @bill.services.each do |s| %>
-      <div class="field">
-        Name: <br>
-        <%= s.name %>
-      </div>
-      <div class="field">
-        Description<br>
-        <%= s.description %>
-      </div>
-      <div class="field">
-        Amount<br>
-        <%= s.amount %>
-      </div>
-      <div class="field">
-        Currency<br>
-        <%= s.currency %>
-      </div>
-      <div class="field">
-        Quantity<br>
-        <%= s.quantity %>
-      </div>
-  <% end %>
+  <div class="well">
+    <h4>Services provided <span class="badge"><%= @bill.services.length %></span></h4>
+    <%= content_tag :a, "New service", href: "#modal", class: 'btn btn-primary', data: {toggle: 'modal'} %>
+
+    <%if @bill.services.length %>
+      <table class="table table-stiped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @bill.services.each do |s| %>
+            <tr>
+              <td><%= s.name %></td>
+              <td><%= s.description %></td>
+              <td><%= "#{s.amount} (#{s.currency})" %></td>
+              <td><%= s.quantity %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+
   <div class="form-group">
     <%= f.submit "Save", class: 'btn btn-primary' %>
   </div>

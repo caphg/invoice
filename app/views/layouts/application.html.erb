@@ -28,7 +28,12 @@
     <% end %>
 <% end %>
 
+<div class="container" style="margin-top: 51px;">
+<% if notice %>
+	<div class="alert alert-success" style="margin-top: 51px;" role="alert"><%= notice %></div>
+<% end %>
 <%= yield %>
+</div>
 
 </body>
 </html>
