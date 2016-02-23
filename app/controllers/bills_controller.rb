@@ -16,6 +16,7 @@ class BillsController < ApplicationController
   # GET /bills/new
   def new
     @bill = Bill.new
+    @bill.services.build
   end
 
   # GET /bills/1/edit
@@ -29,7 +30,7 @@ class BillsController < ApplicationController
 
     respond_to do |format|
       if @bill.save
-        format.html { redirect_to @bill, notice: 'Bill was successfully created.' }
+        format.html { redirect_to edit_bill_path(@bill), notice: 'Bill was successfully created.' }
         format.json { render :show, status: :created, location: @bill }
       else
         format.html { render :new }
@@ -43,7 +44,7 @@ class BillsController < ApplicationController
   def update
     respond_to do |format|
       if @bill.update(bill_params)
-        format.html { redirect_to @bill, notice: 'Bill was successfully updated.' }
+        format.html { redirect_to edit_bill_path(@bill), notice: 'Bill was successfully updated.' }
         format.json { render :show, status: :ok, location: @bill }
       else
         format.html { render :edit }
@@ -70,6 +71,6 @@ class BillsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bill_params
-      params.require(:bill).permit(:notice, :footer, services_attributes: [])
+      params.require(:bill).permit(:notice, :footer, services_attributes: [:id, :name, :description, :quantity, :currency, :amount])
     end
 end
