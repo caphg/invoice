@@ -20,27 +20,28 @@
     <%= f.text_field :footer %>
   </div>
 
-  <%= f.fields_for :services do |s| %>
-    <div class="field">
-      <%= f.label :name %><br>
-      <%= f.text_field :name %>
-    </div>
-    <div class="field">
-      <%= f.label :description %><br>
-      <%= f.text_field :description %>
-    </div>
-    <div class="field">
-      <%= f.label :amount %><br>
-      <%= f.text_field :amount %>
-    </div>
-    <div class="field">
-      <%= f.label :currency %><br>
-      <%= f.text_field :currency %>
-    </div>
-    <div class="field">
-      <%= f.label :quantity %><br>
-      <%= f.text_field :quantity %>
-    </div>
+  Service:
+  <% @bill.services.each do |s| %>
+      <div class="field">
+        <%= s.label :name %><br>
+        <%= s.name %>
+      </div>
+      <div class="field">
+        <%= s.label :description %><br>
+        <%= s.description %>
+      </div>
+      <div class="field">
+        <%= s.label :amount %><br>
+        <%= s.amount %>
+      </div>
+      <div class="field">
+        <%= s.label :currency %><br>
+        <%= s.currency %>
+      </div>
+      <div class="field">
+        <%= s.label :quantity %><br>
+        <%= s.quantity %>
+      </div>
   <% end %>
   <div class="actions">
     <%= f.submit %>
