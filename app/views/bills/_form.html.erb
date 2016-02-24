@@ -1,4 +1,4 @@
-<%= form_for(@bill) do |f| %>
+<%= simple_form_for(@bill) do |f| %>
   <% if @bill.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
@@ -11,6 +11,10 @@
     </div>
   <% end %>
 
+  <div class="form-group">
+    <%= f.label :Number %><br>
+    <%= f.text_field :notice, value: @bill.gen_name, disabled: true %>
+  </div>
   <div class="form-group">
     <%= f.label :notice %><br>
     <%= f.text_field :notice, value: @bill.notice %>
@@ -27,41 +31,22 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title">New service...</h4>
         </div>
+        <%= f.simple_fields_for :services do |s| %>
         <div class="modal-body">
-          <%= f.fields_for :services do |s| %>
-            <div class="form-group">
-              <%= s.label :name %>
-              <%= s.text_field :name %>
-            </div>
-            <div class="form-group">
-              <%= s.label :description %>
-              <%= s.text_field :description %>
-            </div>
-            <div class="form-group">
-              <%= s.label :amount %>
-              <%= s.text_field :amount %>
-            </div>
-            <div class="form-group">
-              <%= s.label :quantity %>
-              <%= s.text_field :quantity %>
-            </div>
-            <div class="form-group">
-              <%= s.label :currency %>
-              <%= s.text_field :currency %>
-            </div>
-          <% end %>
+            <%= render 'service_fields', f: s %>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "Save", class: 'btn btn-primary' %>
+          <%= link_to_add_association 'Add service', f, :services %>
         </div>
+        <% end %>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
   <div class="well">
     <h4>Services provided <span class="badge"><%= @bill.services.length %></span></h4>
-    <%= content_tag :a, "New service", href: "#modal", class: 'btn btn-primary', data: {toggle: 'modal'} %>
+      <%= content_tag :a, "New service", href: "#modal", class: 'btn btn-primary', data: {toggle: 'modal'} %>
 
     <%if @bill.services.length %>
       <table class="table table-stiped">

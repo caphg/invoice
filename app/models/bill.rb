@@ -4,12 +4,16 @@ class Bill < ActiveRecord::Base
 
 	belongs_to :company
 
-	accepts_nested_attributes_for :services
-
 	STATUSES = {PENDING: 1, FINISHED: 2}
+
+	accepts_nested_attributes_for :services, reject_if: :all_blank, allow_destroy: true
 
 	before_create do
 		self.status = STATUSES[:PENDING]
-		self.name = "#{Bill.last.id}-1-1"
+		self.name = gen_name
+	end
+
+	def gen_name
+		"#{Bill.last.id}-1-1"
 	end
 end

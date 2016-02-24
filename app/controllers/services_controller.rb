@@ -1,10 +1,10 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
+  before_action :set_bill, only: [:show, :edit, :update, :destroy]
 
   # GET /services
   # GET /services.json
   def index
-    @services = Service.all
   end
 
   # GET /services/1
@@ -67,8 +67,12 @@ class ServicesController < ApplicationController
       @service = Service.find(params[:id])
     end
 
+    def set_bill
+      @bill = @service.bill
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params.require(:service).permit(:name, :description, :amount, :currency, :quantity)
+      params.require(:service).permit(:name, :description, :amount, :currency, :quantity, :bill_id)
     end
 end
