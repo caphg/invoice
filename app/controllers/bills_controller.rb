@@ -11,6 +11,50 @@ class BillsController < ApplicationController
   # GET /bills/1
   # GET /bills/1.json
   def show
+    bill = @bill
+    result = Billme.bill do
+      number bill.gen_name
+      filename "Bill printout"
+
+      company do
+        logo "logo.png"
+
+        company_name "Enterprise LLC"
+        company_address "The Neutral Zone 123"
+        company_city "Beta Quadrant"
+        company_country "Universe"
+        company_phone "+ 123 123 123 1"
+        company_email "uss@ncc1701.com"
+      end
+
+      client do
+        project_name "Battle engagement"
+        name "Federation"
+        date "2015-05-05"
+        due_date "2015-06-05"
+        address "Earth"
+        email "starfleet@earth.com"
+      end
+
+      services do
+        tax "0.25"
+        bill.services.each do |s|
+          service do
+            name s.name
+            description s.description
+            unit s.amount
+            currency s.currency
+            quantity s.quantity
+          end
+        end
+      end
+
+      other do
+        notice bill.notice
+        footer bill.footer
+      end
+    end
+    render inline: result
   end
 
   # GET /bills/new
