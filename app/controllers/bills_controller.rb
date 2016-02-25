@@ -12,6 +12,7 @@ class BillsController < ApplicationController
   # GET /bills/1.json
   def show
     bill = @bill
+    c = current_company
     result = Billme.bill do
       number bill.gen_name
       filename "Bill printout"
@@ -19,12 +20,12 @@ class BillsController < ApplicationController
       company do
         logo "logo.png"
 
-        company_name "Enterprise LLC"
-        company_address "The Neutral Zone 123"
-        company_city "Beta Quadrant"
-        company_country "Universe"
-        company_phone "+ 123 123 123 1"
-        company_email "uss@ncc1701.com"
+        company_name c.name
+        company_address c.address
+        company_city c.city
+        company_country c.country
+        company_phone c.phone
+        company_email c.email
       end
 
       client do

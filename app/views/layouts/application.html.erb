@@ -22,7 +22,6 @@
     <%= menu_group pull: :right do %>
         <% if current_company %>
 			<%= menu_item "Account", edit_company_registration_path %>
-			<%= menu_item "Settings", settings_path %>
             <%= menu_item "Log Out", destroy_company_session_path, method: :delete %>
         <% else %>
             <%= form_for @company, url: session_path(:company), :html => {class: "navbar-form pull-right"} do |f| -%>

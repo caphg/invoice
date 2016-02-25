@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :bills do
     resources :services
   end
-  devise_for :companies
+  devise_for :companies, controllers: {registrations: 'company/registrations'}
 
   root 'bills#index'
 

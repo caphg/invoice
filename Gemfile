@@ -41,6 +41,7 @@ gem "twitter-bootstrap-rails"
 
 gem "cocoon"
 gem 'simple_form'
+gem 'country_select'
 
 
 group :development, :test do
