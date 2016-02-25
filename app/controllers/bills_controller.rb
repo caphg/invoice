@@ -88,7 +88,6 @@ class BillsController < ApplicationController
   # PATCH/PUT /bills/1
   # PATCH/PUT /bills/1.json
   def update
-    client = Client.where(id: bill_params[:client_id], company_id: current_company.id).first
     respond_to do |format|
       if @bill.update(bill_params)
         format.html { redirect_to edit_bill_path(@bill), notice: 'Bill was successfully updated.' }

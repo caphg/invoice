@@ -10,11 +10,7 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="form-group">
-    <%= f.label :Number %><br>
-    <%= f.text_field :notice, value: @bill.gen_name, disabled: true %>
-  </div>
+  <h2><%= @bill.gen_name %></h2>
   <div class="form-group">
     <%= f.input :date, as: :date, html5: true, value: @bill.date %>
   </div>
@@ -22,39 +18,37 @@
     <%= f.input :due_date, as: :date, html5: true, value: @bill.due_date %>
   </div>
   <div class="form-group">
-    <%= f.label :notice %><br>
-    <%= f.text_field :notice, value: @bill.notice %>
+    <%= f.input :notice, value: @bill.notice, as: :text %>
   </div>
   <div class="form-group">
-    <%= f.label :footer %><br>
-    <%= f.text_field :footer, value: @bill.footer %>
+    <%= f.input :footer, value: @bill.footer, as: :text %>
   </div>
   <div class="form-group">
     <%= f.input :client_id, collection: current_company.clients %>
   </div>
 
   <div class="modal fade" tabindex="-1" role="dialog" id="modal">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width: 1024px;">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">New service...</h4>
+          <h4 class="modal-title">Services provided</h4>
         </div>
         <%= f.simple_fields_for :services do |s| %>
         <div class="modal-body">
             <%= render 'service_fields', f: s %>
         </div>
+        <% end %>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= link_to_add_association 'Add service', f, :services %>
+          <%= link_to_add_association 'Another one', f, :services, class: 'btn btn-primary' %>
         </div>
-        <% end %>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
   <div class="well">
-    <h4>Services provided <span class="badge"><%= @bill.services.length %></span></h4>
+    <h4>Services provided <span class="badge"><%= @bill.services.length - 1 %></span></h4>
       <%= content_tag :a, "New service", href: "#modal", class: 'btn btn-primary', data: {toggle: 'modal'} %>
 
     <%if @bill.services.length %>
@@ -69,7 +63,7 @@
         </thead>
 
         <tbody>
-          <% @bill.services.each do |s| %>
+          <% @bill.services[0...-1].each do |s| %>
             <tr>
               <td><%= s.name %></td>
               <td><%= s.description %></td>

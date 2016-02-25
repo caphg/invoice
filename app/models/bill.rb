@@ -8,6 +8,11 @@ class Bill < ActiveRecord::Base
 
 	accepts_nested_attributes_for :services, reject_if: :all_blank, allow_destroy: true
 
+	validates :client, presence: true
+	validates :services, presence: true
+	validates :date, presence: true
+	validates :due_date, presence: true
+
 	before_create do
 		self.status = STATUSES[:PENDING]
 		self.name = gen_name
