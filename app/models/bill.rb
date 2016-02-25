@@ -1,6 +1,6 @@
 class Bill < ActiveRecord::Base
 	has_many :services, dependent: :destroy
-	has_one :client
+	belongs_to :client
 
 	belongs_to :company
 
@@ -14,6 +14,7 @@ class Bill < ActiveRecord::Base
 	end
 
 	def gen_name
-		"#{Bill.last.id}-1-1"
+		last_id = Bill.last ? Bill.last.id + 1 : 1
+		"#{last_id}-1-1"
 	end
 end

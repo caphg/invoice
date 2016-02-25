@@ -4,7 +4,7 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.all
+    @clients = current_company.clients
   end
 
   # GET /clients/1
@@ -25,6 +25,7 @@ class ClientsController < ApplicationController
   # POST /clients.json
   def create
     @client = Client.new(client_params)
+    @client.company_id = current_company.id
 
     respond_to do |format|
       if @client.save
@@ -64,7 +65,10 @@ class ClientsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client
-      @client = Client.find(params[:id])
+      @client = Client.where(id: params[:id], company_id: current_company.id).first
+      unless @client
+        raise ActionController::RoutingError.new('Not Found')
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

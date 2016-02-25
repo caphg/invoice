@@ -5,4 +5,5 @@ class Company < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :bills, dependent: :destroy
+  has_many :clients, dependent: :destroy
 end

@@ -16,12 +16,21 @@
     <%= f.text_field :notice, value: @bill.gen_name, disabled: true %>
   </div>
   <div class="form-group">
+    <%= f.input :date, as: :date, html5: true, value: @bill.date %>
+  </div>
+  <div class="form-group">
+    <%= f.input :due_date, as: :date, html5: true, value: @bill.due_date %>
+  </div>
+  <div class="form-group">
     <%= f.label :notice %><br>
     <%= f.text_field :notice, value: @bill.notice %>
   </div>
   <div class="form-group">
     <%= f.label :footer %><br>
     <%= f.text_field :footer, value: @bill.footer %>
+  </div>
+  <div class="form-group">
+    <%= f.input :client_id, collection: current_company.clients %>
   </div>
 
   <div class="modal fade" tabindex="-1" role="dialog" id="modal">

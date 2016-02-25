@@ -28,12 +28,12 @@ class BillsController < ApplicationController
       end
 
       client do
-        project_name "Battle engagement"
-        name "Federation"
-        date "2015-05-05"
-        due_date "2015-06-05"
-        address "Earth"
-        email "starfleet@earth.com"
+        # project_name "Battle engagement"
+        name bill.client.name
+        date bill.date
+        due_date bill.due_date
+        address bill.client.address
+        email bill.client.email
       end
 
       services do
@@ -88,6 +88,7 @@ class BillsController < ApplicationController
   # PATCH/PUT /bills/1
   # PATCH/PUT /bills/1.json
   def update
+    client = Client.where(id: bill_params[:client_id], company_id: current_company.id).first
     respond_to do |format|
       if @bill.update(bill_params)
         format.html { redirect_to edit_bill_path(@bill), notice: 'Bill was successfully updated.' }
@@ -112,11 +113,11 @@ class BillsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_bill
-      @bill = Bill.find(params[:id])
+      @bill = Bill.where(id: params[:id], company_id: current_company.id).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bill_params
-      params.require(:bill).permit(:name, :notice, :footer, services_attributes: [:id, :bill_id, :name, :description, :amount, :currency, :quantity, :_destroy])
+      params.require(:bill).permit(:name, :notice, :footer, :date, :due_date, :client_id, services_attributes: [:id, :bill_id, :name, :description, :amount, :currency, :quantity, :_destroy])
     end
 end
