@@ -12,6 +12,7 @@ class Bill < ActiveRecord::Base
 	validates :services, presence: true
 	validates :date, presence: true
 	validates :due_date, presence: true
+	validates :currency, presence: true
 
 	before_create do
 		self.status = STATUSES[:PENDING]

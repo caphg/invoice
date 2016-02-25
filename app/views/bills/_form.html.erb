@@ -26,6 +26,9 @@
   <div class="form-group">
     <%= f.input :client_id, collection: current_company.clients %>
   </div>
+  <div class="form-group">
+    <%= f.input :currency, value: @bill.currency %>
+  </div>
 
   <div class="modal fade" tabindex="-1" role="dialog" id="modal">
     <div class="modal-dialog" style="width: 1024px;">
@@ -67,7 +70,7 @@
             <tr>
               <td><%= s.name %></td>
               <td><%= s.description %></td>
-              <td><%= "#{s.amount} (#{s.currency})" %></td>
+              <td><%= "#{s.amount} (#{@bill.currency})" %></td>
               <td><%= s.quantity %></td>
             </tr>
           <% end %>

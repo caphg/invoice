@@ -40,12 +40,12 @@ class BillsController < ApplicationController
 
       services do
         tax "0.25"
+        currency bill.currency
         bill.services.each do |s|
           service do
             name s.name
             description s.description
             unit s.amount
-            currency s.currency
             quantity s.quantity
           end
         end
@@ -119,6 +119,6 @@ class BillsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bill_params
-      params.require(:bill).permit(:name, :notice, :footer, :date, :due_date, :client_id, services_attributes: [:id, :bill_id, :name, :description, :amount, :currency, :quantity, :_destroy])
+      params.require(:bill).permit(:name, :notice, :currency, :footer, :date, :due_date, :client_id, services_attributes: [:id, :bill_id, :name, :description, :amount, :currency, :quantity, :_destroy])
     end
 end
