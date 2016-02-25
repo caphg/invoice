@@ -17,3 +17,6 @@ test:
   database: invoice
   username: sykhira
   password: root
+
+production:
+  url: <%= ENV['DATABASE_URL'] %>
