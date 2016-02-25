@@ -35,6 +35,7 @@ class BillsController < ApplicationController
         due_date bill.due_date
         address bill.client.address
         email bill.client.email
+        vat bill.client.vat
       end
 
       services do
