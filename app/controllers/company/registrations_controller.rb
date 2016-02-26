@@ -45,6 +45,15 @@ before_filter :configure_account_update_params, only: [:update]
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     devise_parameter_sanitizer.for(:sign_up) << :attribute
+    devise_parameter_sanitizer.for(:sign_up) << :name
+    devise_parameter_sanitizer.for(:sign_up) << :address
+    devise_parameter_sanitizer.for(:sign_up) << :country
+    devise_parameter_sanitizer.for(:sign_up) << :city
+    devise_parameter_sanitizer.for(:sign_up) << :phone
+    devise_parameter_sanitizer.for(:sign_up) << :operator
+    devise_parameter_sanitizer.for(:sign_up) << :swift
+    devise_parameter_sanitizer.for(:sign_up) << :iban
+    devise_parameter_sanitizer.for(:sign_up) << :vat
   end
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -55,6 +64,10 @@ before_filter :configure_account_update_params, only: [:update]
     devise_parameter_sanitizer.for(:account_update) << :country
     devise_parameter_sanitizer.for(:account_update) << :city
     devise_parameter_sanitizer.for(:account_update) << :phone
+    devise_parameter_sanitizer.for(:account_update) << :operator
+    devise_parameter_sanitizer.for(:account_update) << :swift
+    devise_parameter_sanitizer.for(:account_update) << :iban
+    devise_parameter_sanitizer.for(:account_update) << :vat
   end
 
   # The path used after sign up.

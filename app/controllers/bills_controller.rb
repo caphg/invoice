@@ -14,7 +14,7 @@ class BillsController < ApplicationController
     bill = @bill
     c = current_company
     result = Billme.bill do
-      number bill.gen_name
+      number bill.current_name
       filename "Bill printout"
 
       company do
@@ -26,6 +26,9 @@ class BillsController < ApplicationController
         company_country c.country
         company_phone c.phone
         company_email c.email
+        vat c.vat
+        iban c.iban
+        swift c.swift
       end
 
       client do
@@ -33,6 +36,7 @@ class BillsController < ApplicationController
         name bill.client.name
         date bill.date
         due_date bill.due_date
+        bill_date bill.created_at
         address bill.client.address
         email bill.client.email
         vat bill.client.vat
@@ -54,6 +58,9 @@ class BillsController < ApplicationController
       other do
         notice bill.notice
         footer bill.footer
+        payment_method "Transactional account"
+        operator c.operator
+        pay_number bill.current_name
       end
     end
     render inline: result

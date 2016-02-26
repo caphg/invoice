@@ -23,4 +23,8 @@ class Bill < ActiveRecord::Base
 		last_id = Bill.last ? Bill.last.id + 1 : 1
 		"#{last_id}-1-1"
 	end
+
+	def current_name
+		"#{Bill.last.id}-1-1"
+	end
 end

@@ -10,7 +10,11 @@
       </ul>
     </div>
   <% end %>
-  <h2><%= @bill.gen_name %></h2>
+  <% if @bill.new_record? %>
+    <h2><%= @bill.gen_name %></h2>
+  <% else %>
+    <h2><%= @bill.current_name %></h2>
+  <% end %>
   <div class="form-group">
     <%= f.input :date, as: :date, html5: true, value: @bill.date %>
   </div>
