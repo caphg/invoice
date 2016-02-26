@@ -19,6 +19,7 @@ class Bill < ActiveRecord::Base
 		self.name = gen_name
 	end
 
+	# TODO: bill place and cashier id to be fetched from DB
 	def gen_name
 		last_id = Bill.last ? Bill.last.id + 1 : 1
 		"#{last_id}-1-1"

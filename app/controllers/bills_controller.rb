@@ -1,6 +1,7 @@
 class BillsController < ApplicationController
   before_action :set_bill, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_company!
+  before_action :set_locale
 
   # GET /bills
   # GET /bills.json
@@ -127,5 +128,9 @@ class BillsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def bill_params
       params.require(:bill).permit(:name, :notice, :currency, :footer, :date, :due_date, :client_id, services_attributes: [:id, :bill_id, :name, :description, :amount, :currency, :quantity, :_destroy])
+    end
+
+    def set_locale
+      I18n.locale = params[:locale] || I18n.default_locale
     end
 end
