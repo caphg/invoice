@@ -1,6 +1,5 @@
 class Bill < ActiveRecord::Base
 	CURRENCIES = {'$' => 'USD', 'HRK' => 'HRK'}
-
 	has_many :services, dependent: :destroy
 	belongs_to :client
 
