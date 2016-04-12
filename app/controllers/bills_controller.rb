@@ -58,7 +58,7 @@ class BillsController < ApplicationController
       end
 
       other do
-        notice bill.convertion_rate.present? ? "1 #{bill.currency} = #{bill.convertion_rate} HRK | TOTAL(HRK): #{bill.services.reduce(0){|sum, service| sum + service.amount * service.quantity }   }   #{bill.notice}" : bill.notice
+        notice bill.convertion_rate.present? ? "1 #{bill.currency} = #{bill.convertion_rate} HRK | TOTAL(HRK): #{bill.services.reduce(0){|sum, service| sum + service.amount * service.quantity } * bill.convertion_rate  }   #{bill.notice}" : bill.notice
         footer bill.footer
         payment_method paramz[:locale] == 'hr' ? "Transakcijski racun" : "Transactional account"
         operator c.operator
