@@ -54,6 +54,9 @@ before_filter :configure_account_update_params, only: [:update]
     devise_parameter_sanitizer.for(:sign_up) << :swift
     devise_parameter_sanitizer.for(:sign_up) << :iban
     devise_parameter_sanitizer.for(:sign_up) << :vat
+    devise_parameter_sanitizer.for(:sign_up) << :locale
+    devise_parameter_sanitizer.for(:sign_up) << :tax
+    devise_parameter_sanitizer.for(:sign_up) << :time_zone
   end
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -68,6 +71,9 @@ before_filter :configure_account_update_params, only: [:update]
     devise_parameter_sanitizer.for(:account_update) << :swift
     devise_parameter_sanitizer.for(:account_update) << :iban
     devise_parameter_sanitizer.for(:account_update) << :vat
+    devise_parameter_sanitizer.for(:account_update) << :locale
+    devise_parameter_sanitizer.for(:account_update) << :tax
+    devise_parameter_sanitizer.for(:account_update) << :time_zone
   end
 
   # The path used after sign up.

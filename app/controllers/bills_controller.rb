@@ -13,9 +13,10 @@ class BillsController < ApplicationController
   # GET /bills/1.json
   def show
     bill = @bill
+    paramz = params
     c = current_company
     result = Billme.bill do
-      number bill.current_name
+      number bill.name
       filename "Bill printout"
 
       company do
@@ -35,16 +36,16 @@ class BillsController < ApplicationController
       client do
         # project_name "Battle engagement"
         name bill.client.name
-        date bill.date
-        due_date bill.due_date
-        bill_date bill.created_at
+        date bill.date.try(:in_time_zone, c.time_zone)
+        due_date bill.due_date.try(:in_time_zone, c.time_zone)
+        bill_date bill.created_at.try(:in_time_zone, c.time_zone)
         address bill.client.address
         email bill.client.email
         vat bill.client.vat
       end
 
       services do
-        tax "0.25"
+        tax c.tax
         currency bill.currency
         bill.services.each do |s|
           service do
@@ -57,11 +58,11 @@ class BillsController < ApplicationController
       end
 
       other do
-        notice bill.notice
+        notice bill.convertion_rate.present? ? "1 #{bill.currency} = #{bill.convertion_rate} HRK | TOTAL(HRK): #{bill.services.reduce(0){|sum, service| sum + service.amount * service.quantity }   }   #{bill.notice}" : bill.notice
         footer bill.footer
-        payment_method "Transactional account"
+        payment_method paramz[:locale] == 'hr' ? "Transakcijski racun" : "Transactional account"
         operator c.operator
-        pay_number bill.current_name
+        pay_number bill.name
       end
     end
     render inline: result

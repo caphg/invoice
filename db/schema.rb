@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226124223) do
+ActiveRecord::Schema.define(version: 20160412203150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20160226124223) do
   create_table "bills", force: :cascade do |t|
     t.string   "notice"
     t.string   "footer"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.integer  "company_id"
     t.string   "status"
     t.string   "name"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20160226124223) do
     t.datetime "date"
     t.datetime "due_date"
     t.string   "currency"
+    t.decimal  "convertion_rate"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -62,6 +63,9 @@ ActiveRecord::Schema.define(version: 20160226124223) do
     t.string   "iban"
     t.string   "swift"
     t.string   "operator"
+    t.string   "locale"
+    t.decimal  "tax"
+    t.string   "time_zone"
   end
 
   add_index "companies", ["email"], name: "index_companies_on_email", unique: true, using: :btree
