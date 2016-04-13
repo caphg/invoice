@@ -51,7 +51,7 @@ class BillsController < ApplicationController
           service do
             name s.name
             description s.description
-            unit s.amount.round(2)
+            unit s.amount.round_money
             quantity s.quantity
           end
         end
